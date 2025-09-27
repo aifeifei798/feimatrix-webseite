@@ -132,7 +132,7 @@ export default function Page2() {
               href="mailto:contact@qiming.ai"
               className="text-amber-200 text-xl font-light hover:text-amber-100 transition-colors duration-300"
             >
-              contact@qiming.ai
+              contact@feimatrix.com
             </a>
           </motion.div>
         </StaggeredFadeIn>
