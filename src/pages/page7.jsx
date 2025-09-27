@@ -1,17 +1,15 @@
-// src/pages/index.jsx (已修复)
+// src/pages/page7.jsx (已修复)
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import { 
-    // ... 所有的 import 保持不变 ...
     Lightbulb, HelpCircle, ChevronDown, Rocket, Shield, Users as UsersIcon, MapPin, BarChart2, CheckCircle, Database, Scale, CalendarDays, Zap,
     Target, AlertTriangle, Goal, Megaphone, Edit3, Building, Handshake,
     TrendingUp, ShoppingCart, Wallet, DollarSign, Mail, MousePointer, UsersRound, HeartHandshake, Gem
 } from 'lucide-react';
 
 // --- DATA: The single source of truth for our report ---
-// ... 您的所有数据 (analysisSteps, reportData) 保持不变 ...
 const analysisSteps = [
     { text: "接收到战略推演请求...", icon: <Zap className="animate-pulse" /> },
     { text: "正在初始化“启明-战略家-20B”核心...", icon: <Lightbulb /> },
@@ -27,11 +25,11 @@ const analysisSteps = [
 
 const reportData = {
     overview: [
-        { icon: <Target className="h-8 w-8 text-cyan-400" />, title: "品牌定位", description: "“科技美学 + 智能驾驶体验” 的中高端智能电动汽车" },
-        { icon: <Zap className="h-8 w-8 text-cyan-400" />, title: "核心卖点", description: "未来主义外观、星尘 OS 无缝互联、领航 L2+ 智能驾驶" },
-        { icon: <MapPin className="h-8 w-8 text-cyan-400" />, title: "目标市场", description: "中国一线与新一线城市" },
-        { icon: <AlertTriangle className="h-8 w-8 text-red-400" />, title: "核心挑战", description: "市场竞争内卷、品牌零知名度、消费者对“智能”宣传麻木" },
-        { icon: <Goal className="h-8 w-8 text-green-400" />, title: "战略目标", description: "12个月内 30%+ 认知度，首年订单 10,000 台" }
+        { icon: <Target />, title: "品牌定位", description: "“科技美学 + 智能驾驶体验” 的中高端智能电动汽车" },
+        { icon: <Zap />, title: "核心卖点", description: "未来主义外观、星尘 OS 无缝互联、领航 L2+ 智能驾驶" },
+        { icon: <MapPin />, title: "目标市场", description: "中国一线与新一线城市" },
+        { icon: <AlertTriangle className="text-red-400" />, title: "核心挑战", description: "市场竞争内卷、品牌零知名度、消费者对“智能”宣传麻木" },
+        { icon: <Goal className="text-green-400" />, title: "战略目标", description: "12个月内 30%+ 认知度，首年订单 10,000 台" }
     ],
     budget: [
         { name: '数字广告', value: 35, budget: 700, color: '#06b6d4' },
@@ -58,11 +56,11 @@ const reportData = {
 
 // --- SCREEN 1: BRIEFING ---
 const BriefingScreen = ({ onStartAnalysis }) => {
-    // ... (内部代码保持不变)
     const [isFormValid, setIsFormValid] = useState(false);
+
+    // FIX: Correctly get the form element from the event
     const validateForm = (e) => {
-        const form = e.currentTarget.form;
-        setIsFormValid(form && form.checkValidity());
+        setIsFormValid(e.currentTarget.checkValidity());
     };
 
     return (
@@ -110,7 +108,6 @@ const InputField = ({ label, placeholder, isTextarea, required }) => (
 
 // --- SCREEN 2: ANALYZING ---
 const AnalyzingScreen = ({ onAnalysisComplete }) => {
-    // ... (内部代码保持不变)
     const [currentStep, setCurrentStep] = useState(0);
     useEffect(() => {
         if (currentStep < analysisSteps.length - 1) {
@@ -149,9 +146,8 @@ const AnalyzingScreen = ({ onAnalysisComplete }) => {
     );
 };
 
-// --- SCREEN 3: THE FULL "ART PIECE" REPORT ---
+// --- SCREEN 3: THE FULL REPORT ---
 const ReportScreen = () => {
-    // ... (内部代码保持不变)
     const Section = ({ title, children, subtitle }) => (
         <motion.section className="py-16 px-4 md:px-8" initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.6 }}>
             <h2 className="text-4xl md:text-5xl font-bold text-center text-white mb-4">{title}</h2>
@@ -213,7 +209,7 @@ const ReportScreen = () => {
                         {reportData.overview.map((item, index) => (
                              <motion.div key={index} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }}
                                 className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 flex flex-col items-start h-full">
-                                <div className="p-3 bg-slate-700/50 rounded-lg mb-4">{React.cloneElement(item.icon, {className: "h-8 w-8 text-cyan-400"})}</div>
+                                <div className="p-3 bg-slate-700/50 rounded-lg mb-4">{React.cloneElement(item.icon, {className: "h-8 w-8"})}</div>
                                 <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
                                 <p className="text-slate-400">{item.description}</p>
                             </motion.div>
@@ -291,8 +287,7 @@ const ReportScreen = () => {
 
 
 // --- THE MAIN PAGE COMPONENT (STATE MACHINE) ---
-// 1. 将 'export default function App()' 修改为 'function HomePage()'
-function HomePage() {
+function Page7() {
     const [appState, setAppState] = useState('BRIEFING'); // 'BRIEFING', 'ANALYZING', 'REPORT'
 
     const handleStartAnalysis = () => {
@@ -337,6 +332,4 @@ function HomePage() {
     );
 }
 
-// 2. 删除错误的 'export default HomePage;'
-// 3. 在文件末尾只保留这一个正确的 default 导出
-export default HomePage;
+export default Page7;
