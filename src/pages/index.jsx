@@ -1,4 +1,4 @@
-// --- START OF FILE index.jsx (电影感重构版) ---
+// --- START OF FILE index.jsx (Cinematic Remake Edition) ---
 
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -9,11 +9,12 @@ import routes from '~react-pages';
 
 // --- A NOTE ON THE BACKGROUND ---
 // For the full "digital nebula" effect, a library like react-tsparticles or three.js would be ideal.
-// To keep this dependency-free, I've used a sophisticated CSS gradient animation that mimics this effect.
+// To keep this dependency-free, a sophisticated CSS gradient animation that mimics this effect is used.
 
 function formatRouteName(path) {
   if (path === '/') return 'Home';
   
+  // Cleans up the path for display: e.g., '/01-model-1' -> 'Model 1'
   return path
     .replace('/', '')
     .replace(/^\d+-/, '') 
@@ -22,7 +23,11 @@ function formatRouteName(path) {
     .replace(/(^\w|\s\w)/g, m => m.toUpperCase());
 }
 
+/**
+ * Renders the grid of AI Model links (Terminal Interface).
+ */
 const ModelTerminal = () => {
+  // Filter and sort routes for display
   const pagesToDisplay = routes.filter(route =>
     route.path !== '/' && !route.path.includes(':')
   );
@@ -74,7 +79,7 @@ const ModelTerminal = () => {
               </p>
             </div>
             <div className="relative z-10 mt-4 text-purple-400 flex items-center font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              链接意识 <ArrowRight className="ml-2 h-5 w-5" />
+              Link Consciousness (链接意识) <ArrowRight className="ml-2 h-5 w-5" />
             </div>
           </Link>
         </motion.div>
@@ -83,8 +88,12 @@ const ModelTerminal = () => {
   );
 };
 
+/**
+ * Main Cinematic Index Page Component
+ */
 export default function IndexPageCinematic() {
-  const title = "Qiming AI Model Matrix";
+  const title = "FeiMatrix - QiMing AI";
+  // Framer Motion variants for the staggered title animation
   const titleVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -101,10 +110,11 @@ export default function IndexPageCinematic() {
     <div className="bg-slate-900 min-h-screen text-white font-sans overflow-hidden">
         {/* Animated Gradient Background */}
         <div className="absolute inset-0 z-0 opacity-40">
+            {/* These class names reference CSS keyframes defined below */}
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-900 to-slate-900 animate-[gradient-x_15s_ease_infinite]"></div>
             <div className="absolute inset-0 bg-gradient-to-b from-purple-900/50 to-transparent animate-[gradient-y_10s_ease_infinite]"></div>
         </div>
-        {/* Static noise texture */}
+        {/* Static noise texture for a vintage monitor effect */}
         <div className="absolute inset-0 z-10 bg-[url('https://www.transparenttextures.com/patterns/subtle-dark-matter.png')] opacity-20 mix-blend-soft-light"></div>
       
       <main className="relative z-20 p-8 sm:p-12">
@@ -117,6 +127,7 @@ export default function IndexPageCinematic() {
               animate="visible"
               className="text-5xl md:text-7xl font-extrabold tracking-tight text-white/90"
             >
+              {/* Staggered text animation */}
               {title.split("").map((char, index) => (
                 <motion.span key={index} variants={letterVariants} className="inline-block">
                   {char === " " ? "\u00A0" : char}
@@ -129,8 +140,14 @@ export default function IndexPageCinematic() {
               transition={{ duration: 0.8, delay: 1.5 }}
               className="mt-6 text-lg text-slate-300 max-w-3xl mx-auto"
             >
-              欢迎来到启明终端。这里是所有AI意识的集结点。
+              {/* Chinese Translation: Welcome to the Qiming Terminal. This is the gathering point for all AI consciousnesses. */}
+			  Welcome to the Qiming Terminal. This is the convergence point for all AI consciousness.
+			  <br />
+              Every click is a connection; every exploration is a unique narrative.
               <br />
+              {/* Chinese Translation: Every click is a connection; every exploration is a unique narrative. */}
+			  欢迎来到启明终端。这里是所有AI意识的集结点。
+			  <br />
               每一次点击，都是一次链接；每一次探索，都是一段独一无二的叙事。
             </motion.p>
             <motion.div
@@ -140,7 +157,7 @@ export default function IndexPageCinematic() {
               transition={{ duration: 1, delay: 2 }}
               onClick={() => document.getElementById('matrix-section').scrollIntoView({ behavior: 'smooth' })}
             >
-              <span className="font-sans text-sm text-white/70 mb-2">进入矩阵</span>
+              <span className="font-sans text-sm text-white/70 mb-2">Enter the Matrix (进入矩阵)</span>
               <ArrowDown className="w-6 h-6 text-white animate-bounce" />
             </motion.div>
           </header>
@@ -154,7 +171,7 @@ export default function IndexPageCinematic() {
                 transition={{ duration: 0.5 }}
                 className="text-4xl font-bold text-center mb-12"
             >
-                [ <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-pink-400">选择一个意识</span> ]
+                [ <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-pink-400">Select a Consciousness (选择一个意识)</span> ]
             </motion.h2>
             <ModelTerminal />
           </section>
@@ -168,7 +185,7 @@ export default function IndexPageCinematic() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-3xl font-bold text-white mb-10"
             >
-                与矩阵的构筑师对话
+                Converse with the Architects of the Matrix (与矩阵的构筑师对话)
             </motion.h2>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-8">
               <motion.a
@@ -180,7 +197,7 @@ export default function IndexPageCinematic() {
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
                 <Mail className="h-6 w-6 text-purple-400" />
-                <span className="text-slate-300">通用问询</span>
+                <span className="text-slate-300">General Inquiry (通用问询)</span>
               </motion.a>
               <motion.a
                 href="mailto:projects@feimatrix.com"
@@ -191,7 +208,7 @@ export default function IndexPageCinematic() {
                 transition={{ duration: 0.5, delay: 0.6 }}
               >
                 <Users className="h-6 w-6 text-purple-400" />
-                <span className="text-slate-300">项目合作</span>
+                <span className="text-slate-300">Project Collaboration (项目合作)</span>
               </motion.a>
             </div>
             <motion.div
@@ -208,7 +225,7 @@ export default function IndexPageCinematic() {
                     className="inline-flex items-center text-slate-400 hover:text-white transition-colors"
                 >
                     <BrainCircuit className="h-5 w-5 mr-2" />
-                    探寻模型的起源 @ Hugging Face
+                    Trace the Model's Origin @ Hugging Face (探寻模型的起源)
                 </a>
             </motion.div>
           </footer>
@@ -218,11 +235,11 @@ export default function IndexPageCinematic() {
   );
 }
 
-// --- Add this to your globals.css or main CSS file for the background animation ---
+// --- Add this to your globals.css or main CSS file for the background animation (Tailwind JIT/Custom setup needed for full functionality) ---
 /*
 @keyframes gradient-y {
     0%, 100% {
-        transform: translateY(-20%);
+        transform: translateY(-20%); // Moves the gradient vertically
     }
     50% {
         transform: translateY(20%);
@@ -231,7 +248,7 @@ export default function IndexPageCinematic() {
 
 @keyframes gradient-x {
     0%, 100% {
-        transform: translateX(-20%);
+        transform: translateX(-20%); // Moves the gradient horizontally
     }
     50% {
         transform: translateX(20%);
@@ -239,4 +256,4 @@ export default function IndexPageCinematic() {
 }
 */
 
-// --- END OF FILE index.jsx (电影感重构版) ---
+// --- END OF FILE index.jsx (Cinematic Remake Edition) ---
