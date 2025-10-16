@@ -1,8 +1,21 @@
-import React from 'react';
+// --- START OF FILE QiMing.jsx (Corrected) ---
+
+import React, { useState, useEffect } from 'react'; // <--- 修正了这里的语法错误
 import { motion } from 'framer-motion';
 import { Feather, BrainCircuit, BookOpen, Sunrise } from 'lucide-react';
 
-// --- A helper component for the narrative scroll effect ---
+// --- Preloader component for the initial "reveal" animation ---
+const Preloader = ({ onAnimationComplete }) => (
+  <motion.div
+    className="fixed inset-0 bg-slate-900 z-50 flex items-center justify-center"
+    initial={{ opacity: 1 }}
+    animate={{ opacity: 0 }}
+    transition={{ duration: 1.5, delay: 0.5, ease: 'easeInOut' }}
+    onAnimationComplete={onAnimationComplete} // Use the passed callback
+  />
+);
+
+// --- Helper component for staggered fade-in effect on scroll ---
 const StaggeredFadeIn = ({ children, once = true }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -26,17 +39,21 @@ const StaggeredFadeIn = ({ children, once = true }) => {
   );
 };
 
+// --- Child animation variants with added blur effect for a softer reveal ---
 const childVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 30, filter: 'blur(10px)' },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] }, // A gentle, slow ease
+    filter: 'blur(0px)',
+    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 // --- Main App Component ---
 export default function Page2() {
+  const [showPreloader, setShowPreloader] = useState(true);
+
   const principles = [
     {
       icon: <Feather size={32} className="text-amber-200" />,
@@ -59,9 +76,13 @@ export default function Page2() {
       desc: '从认知到创造，仅一步之遥。启明不仅是思想的容器，更是行动的开端。',
     },
   ];
-
+  
   return (
-    <div className="bg-slate-900 font-sans text-slate-300 antialiased overflow-x-hidden">
+    <div className="bg-slate-900 font-sans text-slate-300 antialiased overflow-x-hidden relative">
+      {showPreloader && (
+        <Preloader onAnimationComplete={() => setShowPreloader(false)} />
+      )}
+
       {/* Act I: The Question */}
       <section className="min-h-screen flex items-center justify-center relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-900"></div>
@@ -129,7 +150,7 @@ export default function Page2() {
           </motion.p>
           <motion.div variants={childVariants} className="mt-8">
             <a
-              href="mailto:contact@qiming.ai"
+              href="mailto:contact@feimatrix.com"
               className="text-amber-200 text-xl font-light hover:text-amber-100 transition-colors duration-300"
             >
               contact@feimatrix.com
